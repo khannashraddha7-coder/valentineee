@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine 💘</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #fde2e4, #e0c3fc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    overflow: hidden;
+  }
+
+  .card {
+    background: white;
+    padding: 35px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    width: 320px;
+    z-index: 10;
+  }
+
+  h1 {
+    color: #ff6f91;
+    font-size: 2.2rem;
+  }
+
+  button {
+    padding: 12px 28px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    position: absolute;
+    transition: 0.2s;
+  }
+
+  #yes {
+    background: #a3f7bf;
+    color: #2f855a;
+    left: 40px;
+  }
+
+  #no {
+    background: #ffb3c6;
+    color: #9b2c2c;
+    right: 40px;
+  }
+
+  .buttons {
+    position: relative;
+    height: 90px;
+    margin-top: 20px;
+  }
+
+  .flicker {
+    animation: flicker 0.15s infinite;
+  }
+
+  @keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  /* Second page */
+  #page2 {
+    display: none;
+  }
+
+  #page2 p {
+    font-size: 1.5rem;
+    color: #ff4d6d;
+  }
+
+  img {
+    width: 220px;
+    border-radius: 20px;
+    margin-top: 15px;
+  }
+
+  /* Hearts */
+  .heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp 4s linear forwards;
+  }
+
+  @keyframes floatUp {
+    to {
+      transform: translateY(-110vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- Background music (starts after click) -->
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2023/02/14/audio_55cfa6c4bb.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card" id="page1">
+  <h1>Will you be my Valentine, <span style="color:#ff4d6d;">SAIYAM</span>? 💘</h1>
+
+  <div class="buttons">
+    <button id="yes">Yes 💕</button>
+    <button id="no">No 💔</button>
+  </div>
+</div>
+
+<div class="card" id="page2">
+  <p>AS EXPECTED 😌💅</p>
+  <p>He chose correctly.</p>
+  <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif">
+</div>
+
+<script>
+  const yes = document.getElementById("yes");
+  const no = document.getElementById("no");
+  const page1 = document.getElementById("page1");
+  const page2 = document.getElementById("page2");
+  const music = document.getElementById("music");
+
+  // No button impossible to click
+  no.addEventListener("mouseover", () => {
+    const x = Math.random() * 200 - 100;
+    const y = Math.random() * 150 - 75;
+    no.style.transform = `translate(${x}px, ${y}px)`;
+    no.classList.add("flicker");
+    no.innerText = "NOPE ❌";
+  });
+
+  // Yes clicked
+  yes.addEventListener("click", () => {
+    music.play(); // autoplay-safe (starts after interaction)
+    page1.style.display = "none";
+    page2.style.display = "block";
+    setInterval(createHeart, 250);
+  });
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 4000);
+  }
+</script>
+
+</body>
+</html>
